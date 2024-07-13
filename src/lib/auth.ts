@@ -1,5 +1,5 @@
 import { db } from "./db.ts"
-
+import jwt from "jsonwebtoken";
 import crypto from 'crypto';
 export const pswRegex = "^(?=.*[A-Z])(?=.*\\d).{10,}$"
 export const usrRegex = "^[a-zA-Z0-9_]{1,16}$"
@@ -58,51 +58,28 @@ export async function createUser(email: string, username: string, password: stri
         throw new Error(`Failed to create user: ${error.message}`);
     }
 }
-export function makeToken(username:string) {
-    return `${btoa("MAGIC"+CaesarCipher(`${username};${Date.now()};${Date.now() + (1000*60*60*24)};${Math.floor(Math.random()*32767)}`,44))}`;
-}
-export function decodeToken(token:string) {
-    return `${CaesarCipher(atob(token).slice(5),-44)}`
-}
-export function parseToken(token:string)  {
-    let t = decodeToken(token);
-    if (!atob(token).startsWith("MAGIC")) {
-        return "Not properly formatted"
-    }
-    if (t.split(";").length != 4) {
-        return "Not properly formatted"
-    }
-    let te = t.split(";")
-    ;
-    try {
-        // @ts-expect-error
-        if (isNaN(te[1]) || isNaN(te[2])) {throw new Error("Invalid number")}
-        new Date(te[1]);new Date(te[2])
-    }
-     catch {return "Invalid creation/expiry date."}
-    if (Number(te[1]) > Number(te[2])) {return "Invalid creation/expiry date."}
-    if (Number(te[2]) < Date.now()) {return "Expired token"}
-    return te
-}
+
+let secretKey = btoa(require('node-macaddress').one());
 
 export async function signup(email: string, username: string, password: string) {
-    if (!new RegExp(usrRegex).test(username)) {return "\x01"}
-    if (!new RegExp(pswRegex).test(username)) {return "\x02"}
-    if (await userExists(sha256hash(email),username)) {
-        return "\x00"
+    if (!new RegExp(usrRegex).test(username)) { return "\x01" }
+    if (!new RegExp(pswRegex).test(username)) { return "\x02" }
+    if (await userExists(sha256hash(email), username)) {
+      return "\x00"
     } else {
-        await createUser(email,username,password)
+      await createUser(email, username, password)
+      const token = jwt.sign({ username, email }, secretKey, { expiresIn: '1h' });
+      return token;
     }
-    return makeToken(username)
-
-}
-export async function login(email: string, username: string, password: string) {
-    if (!new RegExp(usrRegex).test(username)) {return "\x01"}
-    if (!new RegExp(pswRegex).test(username)) {return "\x02"}
-    if (await userExists(sha256hash(email),username)) {
-        return "\x00"
+  }
+  
+  export async function login(email: string, username: string, password: string) {
+    if (!new RegExp(usrRegex).test(username)) { return "\x01" }
+    if (!new RegExp(pswRegex).test(username)) { return "\x02" }
+    if (await userExists(sha256hash(email), username)) {
+      const token = jwt.sign({ username, email }, secretKey, { expiresIn: '1h' });
+      return token;
     } else {
-        return makeToken(username)
+      return "\x00"
     }
-    
-}
+  }

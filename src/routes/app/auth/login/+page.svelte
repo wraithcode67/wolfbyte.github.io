@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-  import { pswRegex, usrRegex,makeToken,decodeToken } from "$lib/auth.ts"
+  import { pswRegex, usrRegex,makeToken,decodeToken,parseToken } from "$lib/auth.ts"
     onMount(()=>{
         setInterval(()=>{
         // @ts-expect-error
@@ -11,6 +11,7 @@
       let t = makeToken("hello");
       console.log(t)
       console.log(decodeToken(t))
+      console.log(parseToken(t))
     })();
     
 </script>

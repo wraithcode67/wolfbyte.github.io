@@ -69,10 +69,10 @@ export function parseToken(token:string)  {
     if (!atob(token).startsWith("MAGIC")) {
         return "Not properly formatted"
     }
-    if (t.slice(5).split(";").length != 4) {
+    if (t.split(";").length != 4) {
         return "Not properly formatted"
     }
-    let te = t.slice(5).split(";")
+    let te = t.split(";")
     ;
     try {
         // @ts-expect-error
@@ -83,4 +83,26 @@ export function parseToken(token:string)  {
     if (Number(te[1]) > Number(te[2])) {return "Invalid creation/expiry date."}
     if (Number(te[2]) < Date.now()) {return "Expired token"}
     return te
+}
+
+export async function signup(email: string, username: string, password: string) {
+    if (!new RegExp(usrRegex).test(username)) {return "\x01"}
+    if (!new RegExp(pswRegex).test(username)) {return "\x02"}
+    if (await userExists(sha256hash(email),username)) {
+        return "\x00"
+    } else {
+        await createUser(email,username,password)
+    }
+    return makeToken(username)
+
+}
+export async function login(email: string, username: string, password: string) {
+    if (!new RegExp(usrRegex).test(username)) {return "\x01"}
+    if (!new RegExp(pswRegex).test(username)) {return "\x02"}
+    if (await userExists(sha256hash(email),username)) {
+        return "\x00"
+    } else {
+        return makeToken(username)
+    }
+    
 }

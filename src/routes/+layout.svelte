@@ -4,7 +4,7 @@
 </script>
 <div class="navbar bg-base-200">
     <div class="navbar-start">
-    <a class="btn btn-ghost text-xl mr-6" href="/"><img src="catway@0.5x.png" width="96" height="96" class="!h-[2em] !w-[2em]" alt="Catway Logo"> Catway</a>
+    <a class="btn btn-ghost text-xl mr-6" href="/"><img src="/catway@0.5x.png" width="96" height="96" class="!h-[2em] !w-[2em]" alt="Catway Logo"> Catway</a>
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
           <Menu />

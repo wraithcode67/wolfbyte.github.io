@@ -1,5 +1,5 @@
 <script>
-    import "../app.css";
+    import "./app.css";
     import { Settings,Home,Menu } from "lucide-svelte";
 </script>
 <div class="navbar bg-base-200">

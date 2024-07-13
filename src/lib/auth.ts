@@ -8,6 +8,8 @@ function sha256hash(s: string): string {
     return hash.digest('hex');
 }
 
+let secret = sha256hash(process.env.SECRET_KEY || "")
+
 export async function userExists(email: string | undefined = undefined, username: string | undefined = undefined): Promise<boolean> {
     const hashedEmail = email ? sha256hash(email) : undefined;
     const u = await db.user.findFirst({

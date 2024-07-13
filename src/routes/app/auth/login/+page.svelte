@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-
+  import { pswRegex, usrRegex } from "$lib/auth.ts"
     onMount(()=>{
         setInterval(()=>{
         // @ts-expect-error
@@ -13,11 +13,11 @@
     <h3 class="text-lg font-bold">Welcome back!</h3>
     <p class="py-4">
         <label for="username">Username:</label>
-        <input name="username" type="username" placeholder="johndoe123" class="mb-2  input bg-base-300 input-bordered !border-none w-full max-w-xs" />
+        <input name="username" pattern={usrRegex} required type="username" placeholder="johndoe123" class="mb-2 v input bg-base-300 input-bordered !border-none w-full max-w-xs" />
         <br>
 
         <label for="password">Password:</label>
-        <input name="password" type="password" placeholder="Shh! It's a secret!" class=" input bg-base-300 input-bordered !border-none w-full max-w-xs" />
+        <input name="password" pattern={pswRegex} required type="password" placeholder="Shh! It's a secret!" class="v input bg-base-300 input-bordered !border-none w-full max-w-xs" />
      
     </p>
     <div class="modal-action">

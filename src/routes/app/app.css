@@ -5,3 +5,4 @@
 .input[type="password"] {
     @apply placeholder:transform placeholder:scale-x-[1.8] hover:placeholder:scale-x-100 placeholder:translate-x-[6.25rem] hover:placeholder:translate-x-0 placeholder:blur-sm placeholder:hover:blur-0 placeholder:!duration-300 placeholder:!transition-all;
 }
+.v {@apply invalid:ring-2 invalid:bg-error/10 valid:bg-success/10 invalid:ring-error valid:ring-2 valid:ring-success;}

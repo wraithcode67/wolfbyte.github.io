@@ -1,14 +1,20 @@
 import { db } from "./db.ts"
-import argon2 from 'argon2';
-import crypto from 'crypto';
 
+import crypto from 'crypto';
+export const pswRegex = "^(?=.*[A-Z])(?=.*\\d).{10,}$"
+export const usrRegex = "^[a-zA-Z0-9_]{1,16}$"
 function sha256hash(s: string): string {
     const hash = crypto.createHash('sha256');
     hash.update(s);
     return hash.digest('hex');
 }
 
-let secret = sha256hash(process.env.SECRET_KEY || "")
+function sha512hash(s: string): string {
+    const hash = crypto.createHash('sha512');
+    hash.update(s);
+    return hash.digest('hex');
+}
+
 
 export async function userExists(email: string | undefined = undefined, username: string | undefined = undefined): Promise<boolean> {
     const hashedEmail = email ? sha256hash(email) : undefined;
@@ -29,7 +35,7 @@ export async function createUser(email: string, username: string, password: stri
             data: {
                 email: sha256hash(email),
                 username: username,
-                password: await argon2.hash(password, { type: argon2.argon2id }),
+                password: sha512hash(password),
             },
         });
         return user;

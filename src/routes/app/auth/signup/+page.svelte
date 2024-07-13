@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-
+  import { pswRegex, usrRegex } from "$lib/auth.ts"
     onMount(()=>{
         setInterval(()=>{
         // @ts-expect-error
@@ -13,16 +13,16 @@
     <h3 class="text-lg font-bold">Hello!</h3>
     
         <label for="email">Email:</label>
-        <input name="email" type="email" placeholder="wedontsendyouspam@rare1k.dev" class="mb-2 input bg-base-300  input-bordered !border-none w-full max-w-xs" />
+        <input name="email" type="email" required placeholder="wedontsendyouspam@rare1k.dev" class="mb-2 input v bg-base-300  input-bordered !border-none w-full max-w-xs" />
         <br> 
         <label for="username">Username:</label>
         <div class="tooltip" data-tip="Must be 2-16 characters, be alphanumeric. Underscores are allowed.">
-        <input name="username" type="username" placeholder="johndoe123" class="mb-2 input  bg-base-300 input-bordered !border-none w-full max-w-xs" />
+        <input name="username" type="username" required pattern={usrRegex} placeholder="johndoe123" class="mb-2 input v bg-base-300 input-bordered !border-none w-full max-w-xs" />
         </div>
         <br>
         <label for="password">Password:</label>
         <div class="tooltip" data-tip="Must be atleast 10 characters, and have atleast one uppercase letter and atleast one number">
-        <input name="password" type="password" placeholder="Shh! It's a secret!" class="input bg-base-300  input-bordered !border-none w-full max-w-xs" />
+        <input name="password" required pattern={pswRegex} type="password" placeholder="Shh! It's a secret!" class="v input bg-base-300  input-bordered !border-none w-full max-w-xs" />
         </div>
   
     <div class="modal-action">

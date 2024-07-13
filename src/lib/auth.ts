@@ -64,3 +64,23 @@ export function makeToken(username:string) {
 export function decodeToken(token:string) {
     return `${CaesarCipher(atob(token).slice(5),-44)}`
 }
+export function parseToken(token:string)  {
+    let t = decodeToken(token);
+    if (!atob(token).startsWith("MAGIC")) {
+        return "Not properly formatted"
+    }
+    if (t.slice(5).split(";").length != 4) {
+        return "Not properly formatted"
+    }
+    let te = t.slice(5).split(";")
+    ;
+    try {
+        // @ts-expect-error
+        if (isNaN(te[1]) || isNaN(te[2])) {throw new Error("Invalid number")}
+        new Date(te[1]);new Date(te[2])
+    }
+     catch {return "Invalid creation/expiry date."}
+    if (Number(te[1]) > Number(te[2])) {return "Invalid creation/expiry date."}
+    if (Number(te[2]) < Date.now()) {return "Expired token"}
+    return te
+}

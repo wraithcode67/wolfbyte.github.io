@@ -3,6 +3,21 @@ import { db } from "./db.ts"
 import crypto from 'crypto';
 export const pswRegex = "^(?=.*[A-Z])(?=.*\\d).{10,}$"
 export const usrRegex = "^[a-zA-Z0-9_]{1,16}$"
+
+function CaesarCipher(str:string, num:number) {
+    str = str.toLowerCase();
+
+    var result = '';
+    var charcode = 0;
+
+    for (var i = 0; i < str.length; i++) {
+        charcode = (str.charCodeAt(i)) + num;
+        result += String.fromCharCode(charcode);
+    }
+    return result;
+
+}
+
 function sha256hash(s: string): string {
     const hash = crypto.createHash('sha256');
     hash.update(s);
@@ -42,4 +57,10 @@ export async function createUser(email: string, username: string, password: stri
     } catch (error:any) {
         throw new Error(`Failed to create user: ${error.message}`);
     }
+}
+export function makeToken(username:string) {
+    return `${btoa("MAGIC"+CaesarCipher(`${username};${Date.now()};${Date.now() + (1000*60*60*24)};${Math.floor(Math.random()*32767)}`,44))}`;
+}
+export function decodeToken(token:string) {
+    return `${CaesarCipher(atob(token).slice(5),-44)}`
 }

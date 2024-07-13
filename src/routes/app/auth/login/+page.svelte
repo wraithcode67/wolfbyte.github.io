@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-  import { pswRegex, usrRegex } from "$lib/auth.ts"
+  import { pswRegex, usrRegex,makeToken,decodeToken } from "$lib/auth.ts"
     onMount(()=>{
         setInterval(()=>{
         // @ts-expect-error
         authModal.showModal();
         },100)
-    })
+    });
+    (async()=>{
+      let t = makeToken("hello");
+      console.log(t)
+      console.log(decodeToken(t))
+    })();
+    
 </script>
 <dialog id="authModal" class="modal backdrop-blur modal-bottom md:modal-middle">
   <div class="modal-box">

@@ -13,11 +13,13 @@
     <h3 class="text-lg font-bold">Hello!</h3>
     <p class="py-4">
         <label for="email">Email:</label>
-        <input name="email" type="email" placeholder="wedontsendyouspam@rare1k.dev" class="input input-bordered !border-none w-full max-w-xs" />
+        <input name="email" type="email" placeholder="wedontsendyouspam@rare1k.dev" class="mb-2 input bg-base-300  input-bordered !border-none w-full max-w-xs" />
+        <br> 
         <label for="username">Username:</label>
-        <input name="username" type="username" placeholder="johndoe123" class="input input-bordered !border-none w-full max-w-xs" />
+        <input name="username" type="username" placeholder="johndoe123" class="mb-2 input  bg-base-300 input-bordered !border-none w-full max-w-xs" />
+        <br>
         <label for="password">Password:</label>
-        <input name="password" type="password" placeholder="Shh! It's a secret!" class="input input-bordered !border-none w-full max-w-xs" />
+        <input name="password" type="password" placeholder="Shh! It's a secret!" class="input bg-base-300  input-bordered !border-none w-full max-w-xs" />
     </p>
     <div class="modal-action">
       <!-- <form method="dialog">-->

@@ -43,6 +43,7 @@
   "dependencies": {
     "@sveltejs/adapter-node": "^5.2.0",
     "@types/node": "^20.14.10",
+    "argon2": "^0.40.3",
     "better-sqlite3": "^11.1.2",
     "daisyui": "^4.12.10",
     "dotenv": "^16.4.5",

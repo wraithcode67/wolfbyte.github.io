@@ -3,5 +3,5 @@
 @tailwind utilities;
 .input {@apply focus:bg-base-300/75 focus:scale-100 duration-300 scale-[0.97] placeholder:opacity-50;}
 .input[type="password"] {
-    @apply placeholder:transform placeholder:scale-x-[2] hover:placeholder:scale-x-100 placeholder:translate-x-36 hover:placeholder:translate-x-0 placeholder:blur-sm placeholder:hover:blur-0 placeholder:!duration-300 placeholder:!transition-all;
+    @apply placeholder:transform placeholder:scale-x-[1.8] hover:placeholder:scale-x-100 placeholder:translate-x-[6.25rem] hover:placeholder:translate-x-0 placeholder:blur-sm placeholder:hover:blur-0 placeholder:!duration-300 placeholder:!transition-all;
 }

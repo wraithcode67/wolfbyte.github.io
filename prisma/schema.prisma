@@ -7,6 +7,7 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 // Define the User model
 model User {
   id        Int      @id @default(autoincrement())

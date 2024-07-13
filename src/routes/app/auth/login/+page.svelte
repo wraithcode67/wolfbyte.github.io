@@ -15,13 +15,15 @@
         <label for="username">Username:</label>
         <input name="username" type="username" placeholder="johndoe123" class="mb-2  input bg-base-300 input-bordered !border-none w-full max-w-xs" />
         <br>
+
         <label for="password">Password:</label>
         <input name="password" type="password" placeholder="Shh! It's a secret!" class=" input bg-base-300 input-bordered !border-none w-full max-w-xs" />
+     
     </p>
     <div class="modal-action">
       <!-- <form method="dialog">-->
         <a href="?" class="btn btn-primary !px-6">Login</a>
-        <a href="/auth/signup" class="btn !px-6">Signup</a>
+        <a href="/app/auth/signup" class="btn !px-6">Signup</a>
       <!-- </form>-->
     </div>
   </div>

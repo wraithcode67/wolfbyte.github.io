@@ -7,25 +7,29 @@ onMount(()=>{
       // @ts-expect-error
       authModal.showModal();
     }, 100)
-
+    document.querySelector(".btn-primary").addEventListener("click",()=>{signup()})
 })
-    async function signup() {
-      if (!RegExp(pswRegex).test(document.querySelector(".password").value) || !RegExp(usrRegex).test(document.querySelector(".username").value)) {
+async function signup() {
+let psw = document.querySelector(".password").value
+let usr = document.querySelector(".username").value
+console.log(psw,usr)
+if (!psw || !usr) {return}
+      if (!RegExp(pswRegex).test(psw) || !RegExp(usrRegex).test(usr)) {
         alert("Username or password do not meet requirements");return;
       }
       let res = await fetch("/api/auth/login",{"method":"POST","body":JSON.stringify({
         // @ts-expect-error
         "email":document.querySelector(".email").value,
         // @ts-expect-error
-        "username":document.querySelector(".username").value,
+        "username":usr,
         // @ts-expect-error
-        "password":document.querySelector(".password").value,
+        "password":psw,
       })})
       if (!res.ok) {alert(await res.text())} else {
         localStorage["__jwt_auth"] = await res.text();
         document.location = "/app"
       } 
-    }
+    } 
 </script>
 <button class="btn" onclick="authModal.showModal();">Show Login Modal</button>
 <dialog id="authModal" class="modal backdrop-blur modal-bottom md:modal-middle">
@@ -48,7 +52,7 @@ onMount(()=>{
   
     <div class="modal-action">
       <!-- <form method="dialog">-->
-        <a href="?" class="btn btn-primary !px-6" on:click={await signup()}>Signup</a>
+        <button class="btn btn-primary !px-6">Signup</button>
         <a href="/app/auth/login" class="btn !px-6">Login</a>
       <!-- </form>-->
     </div>

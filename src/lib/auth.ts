@@ -1,5 +1,4 @@
 import { db } from "./db.ts"
-import jwt from "jsonwebtoken";
 export const pswRegex = "^(?=.*[A-Z])(?=.*\\d).{10,}$"
 export const usrRegex = "^[a-zA-Z0-9_]{1,16}$"
 import { sha256hash,sha512hash } from "./crypto.ts";

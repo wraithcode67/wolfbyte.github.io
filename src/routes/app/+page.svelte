@@ -1,2 +1,9 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import { redirect } from "@sveltejs/kit";
+
+if (!localStorage["__auth_jwt"]) {
+    throw redirect(301,"/app/auth/login")
+} else {
+    throw redirect(301,"/app/dash")
+}
+</script>

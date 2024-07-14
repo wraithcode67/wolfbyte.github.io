@@ -58,8 +58,8 @@ export async function createUser(email: string, username: string, password: stri
         throw new Error(`Failed to create user: ${error.message}`);
     }
 }
-
-let secretKey = btoa(require('node-macaddress').one());
+import mac from "node-macaddress";
+let secretKey = btoa(mac.one());
 
 export async function signup(email: string, username: string, password: string) {
     if (!new RegExp(usrRegex).test(username)) { return "\x01" }
@@ -68,7 +68,7 @@ export async function signup(email: string, username: string, password: string) 
       return "\x00"
     } else {
       await createUser(email, username, password)
-      const token = jwt.sign({ username, email }, secretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ username, email }, secretKey, { expiresIn: '6h' });
       return token;
     }
   }
@@ -77,7 +77,7 @@ export async function signup(email: string, username: string, password: string) 
     if (!new RegExp(usrRegex).test(username)) { return "\x01" }
     if (!new RegExp(pswRegex).test(username)) { return "\x02" }
     if (await userExists(sha256hash(email), username)) {
-      const token = jwt.sign({ username, email }, secretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ username, email }, secretKey, { expiresIn: '6h' });
       return token;
     } else {
       return "\x00"

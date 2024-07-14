@@ -51,6 +51,7 @@
     "drizzle-orm": "^0.32.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-svelte": "^0.408.0",
-    "node-macaddress": "^0.2.4"
+    "node-macaddress": "^0.2.4",
+    "svelte-hooks": "^0.0.7"
   }
 }

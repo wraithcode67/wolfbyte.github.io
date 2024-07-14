@@ -1,27 +1,12 @@
 import { db } from "./db.ts"
 export const pswRegex = "^(?=.*[A-Z])(?=.*\\d).{10,}$"
 export const usrRegex = "^[a-zA-Z0-9_]{1,16}$"
-import { sha256hash,sha512hash } from "./crypto.ts";
-function CaesarCipher(str:string, num:number) {
-    str = str.toLowerCase();
-
-    var result = '';
-    var charcode = 0;
-
-    for (var i = 0; i < str.length; i++) {
-        charcode = (str.charCodeAt(i)) + num;
-        result += String.fromCharCode(charcode);
-    }
-    return result;
-
-}
-
 export async function userExists(email: string | undefined = undefined, username: string | undefined = undefined): Promise<boolean> {
-    const hashedEmail = email ? sha256hash(email) : undefined;
+    // Assuming hashed correctly
     const u = await db.user.findFirst({
         where: {
             OR: [
-                { email: hashedEmail },
+                { email: email },
                 { username: username }
             ]
         }
@@ -31,11 +16,12 @@ export async function userExists(email: string | undefined = undefined, username
 
 export async function createUser(email: string, username: string, password: string) {
     try {
+        // Assuming hashed correctly
         const user = await db.user.create({
             data: {
-                email: sha256hash(email),
+                email: email,
                 username: username,
-                password: sha512hash(password),
+                password: password,
             },
         });
         return user;

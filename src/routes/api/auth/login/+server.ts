@@ -15,8 +15,6 @@ export async function POST({ request, cookies }) {
     if (!await auth.userExists(undefined,username)) {
         return text("ERR: User does not exist",{status:400})
     }
-    if (!new RegExp(auth.usrRegex).test(username)) { return text("ERR: Username does not meet requirements",{status:400}) }
-    if (!new RegExp(auth.pswRegex).test(username)) { return text("ERR: Password does not meet requirements",{status:400}) }
     
     let user = await db.user.findFirst({
         where: {

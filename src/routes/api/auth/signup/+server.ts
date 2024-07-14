@@ -14,8 +14,6 @@ export async function POST({ request, cookies }) {
     if (await auth.userExists(email,username)) {
         return text("ERR: User already exists with either the same email or username",{status:400})
     }
-    if (!new RegExp(auth.usrRegex).test(username)) { return text("ERR: Username does not meet requirements",{status:400}) }
-    if (!new RegExp(auth.pswRegex).test(username)) { return text("ERR: Password does not meet requirements",{status:400}) }
     await auth.createUser(email,username,password);
     const token = jwt.sign({ username,password,"MAGIC":Date.now() }, secretKey, { expiresIn: '6h' });
     return text(token);

@@ -2,6 +2,7 @@
   // @ts-nocheck
 	import { afterUpdate, onMount } from "svelte";
   import { pswRegex, usrRegex } from "$lib/auth.ts"
+  import { sha256hash,sha512hash } from "$lib/crypto";
 onMount(()=>{
     setInterval(()=>{
       // @ts-expect-error
@@ -17,13 +18,13 @@ if (!psw || !usr) {return}
       if (!RegExp(pswRegex).test(psw) || !RegExp(usrRegex).test(usr)) {
         alert("Username or password do not meet requirements");return;
       }
-      let res = await fetch("/api/auth/login",{"method":"POST","body":JSON.stringify({
+      let res = await fetch("/api/auth/signup",{"method":"POST","body":JSON.stringify({
         // @ts-expect-error
-        "email":document.querySelector(".email").value,
+        "email":await sha256hash(document.querySelector(".email").value),
         // @ts-expect-error
         "username":usr,
         // @ts-expect-error
-        "password":psw,
+        "password":await sha512hash(psw),
       })})
       if (!res.ok) {alert(await res.text())} else {
         localStorage["__jwt_auth"] = await res.text();

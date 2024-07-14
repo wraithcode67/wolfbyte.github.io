@@ -1,7 +1,8 @@
 <script lang="js">
   // @ts-nocheck
 	import { onMount } from "svelte";
-  import { pswRegex, usrRegex} from "$lib/auth.ts"
+  import { pswRegex, usrRegex} from "$lib/auth.ts";
+  import { sha256hash,sha512hash } from "$lib/crypto";
     onMount(()=>{
         setInterval(()=>{
         // @ts-expect-error
@@ -21,7 +22,7 @@ if (!psw || !usr) {return}
         // @ts-expect-error
         "username":usr,
         // @ts-expect-error
-        "password":psw,
+        "password":await sha512hash(psw),
       })})
       if (!res.ok) {alert(await res.text())} else {
         localStorage["__jwt_auth"] = await res.text();

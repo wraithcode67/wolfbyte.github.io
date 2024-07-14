@@ -4,19 +4,10 @@ import * as auth from "$lib/auth.ts";
 import mac from "node-macaddress";
 let secretKey = btoa(mac.one());
 import jwt from "jsonwebtoken";
-
-
 import { error } from '@sveltejs/kit';
-import { RateLimiter } from 'sveltekit-rate-limiter/server';
 import { db } from '$lib/db';
 
-const limiter = new RateLimiter({
-  IP: [50, 'h'], // 50 account logins per hour
-});
-
 export async function POST({ request, cookies }) {
-    // @ts-expect-error
-    if (await limiter.isLimited(event)) throw error(429);
     const { username,password } = await request.json();
     if ((password.length != 128 || !/^[0-9a-f]+$/.test(password))) {
         return text("ERR: Invalid hash",{status:400})

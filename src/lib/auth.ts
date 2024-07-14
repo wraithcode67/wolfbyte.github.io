@@ -1,9 +1,8 @@
 import { db } from "./db.ts"
 import jwt from "jsonwebtoken";
-import crypto from 'crypto';
 export const pswRegex = "^(?=.*[A-Z])(?=.*\\d).{10,}$"
 export const usrRegex = "^[a-zA-Z0-9_]{1,16}$"
-
+import { sha256hash,sha512hash } from "./crypto.ts";
 function CaesarCipher(str:string, num:number) {
     str = str.toLowerCase();
 
@@ -17,19 +16,6 @@ function CaesarCipher(str:string, num:number) {
     return result;
 
 }
-
-function sha256hash(s: string): string {
-    const hash = crypto.createHash('sha256');
-    hash.update(s);
-    return hash.digest('hex');
-}
-
-function sha512hash(s: string): string {
-    const hash = crypto.createHash('sha512');
-    hash.update(s);
-    return hash.digest('hex');
-}
-
 
 export async function userExists(email: string | undefined = undefined, username: string | undefined = undefined): Promise<boolean> {
     const hashedEmail = email ? sha256hash(email) : undefined;
@@ -58,6 +44,7 @@ export async function createUser(email: string, username: string, password: stri
         throw new Error(`Failed to create user: ${error.message}`);
     }
 }
+// @ts-expect-error
 import mac from "node-macaddress";
 let secretKey = btoa(mac.one());
 

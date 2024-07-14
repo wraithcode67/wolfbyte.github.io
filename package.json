@@ -52,6 +52,7 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-svelte": "^0.408.0",
     "node-macaddress": "^0.2.4",
-    "svelte-hooks": "^0.0.7"
+    "svelte-hooks": "^0.0.7",
+    "sveltekit-rate-limiter": "^0.5.1"
   }
 }

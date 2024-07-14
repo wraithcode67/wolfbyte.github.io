@@ -12,23 +12,6 @@ onMount(()=>{
     }, 100)
   }
 })
-
-        
-  async function loginEvent() {
-    // @ts-expect-error
-    let jwt = await login(document.querySelector('.eml').value,document.querySelector('.usr').value,document.querySelector('.psw').value);
-    if (jwt.length == 1) {
-      let error = "";
-      if (jwt == "\x00") {error = "Account already exists"}
-      if (jwt == "\x01" || jwt == "\x02") {error = "Username or password does not meet the requirements"}
-      alert(error)
-    } else {
-      localStorage["__auth_jwt"] = jwt;
-      document.location = "/app"
-    }
-
-  }
-    })
     
 </script>
 <button class="btn" onclick="authModal.showModal();">Show Login Modal</button>

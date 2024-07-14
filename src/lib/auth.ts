@@ -44,9 +44,12 @@ export async function createUser(email: string, username: string, password: stri
         throw new Error(`Failed to create user: ${error.message}`);
     }
 }
+
+/*
 // @ts-expect-error
 import mac from "node-macaddress";
 let secretKey = btoa(mac.one());
+
 
 export async function signup(email: string, username: string, password: string) {
     if (!new RegExp(usrRegex).test(username)) { return "\x01" }
@@ -70,3 +73,4 @@ export async function signup(email: string, username: string, password: string) 
       return "\x00"
     }
   }
+    */

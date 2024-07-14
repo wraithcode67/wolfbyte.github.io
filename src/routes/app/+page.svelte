@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { redirect } from "@sveltejs/kit";
-
 if (!localStorage["__auth_jwt"]) {
-    throw redirect(301,"/app/auth/login")
+    document.location = "/app/auth/login"
 } else {
-    throw redirect(301,"/app/dash")
+    document.location = "/app/dash"
 }
 </script>

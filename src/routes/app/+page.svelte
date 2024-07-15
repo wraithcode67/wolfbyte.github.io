@@ -1,13 +1,11 @@
 <script lang="ts">
-    import { validateAuth } from "$lib/client";
-    (async()=>{
-        let v = await validateAuth()
-        console.log(v)
+import { validateAuth } from "$lib/client";
+(async()=>{
+let v = await validateAuth()
+console.log(v)
 if (v == true) {
     document.location = "/app/dash/"
-}
-    })();
-
+}})();
 </script>
 
 <div class="w-full h-[calc(100vh-64px)] flex flex-1  flex-col justify-center align-middle items-center">

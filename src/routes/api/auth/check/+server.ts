@@ -16,8 +16,8 @@ export async function POST({ request, cookies }) {
             // @ts-expect-error
             const expiry = jwt.decode(token).exp;
             if (!expiry) {return text("false")}
-            const now = new Date();
-            return text(String(now.getTime() > expiry * 1000));
+           console.log(expiry * 1000,Date.now())
+            return text(String(Date.now() < expiry * 1000));
           }
           return text(String(false));
     } catch (error) {

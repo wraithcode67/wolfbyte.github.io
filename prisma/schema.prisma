@@ -8,32 +8,42 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Define the User model
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String
-  email     String
-  password  String
-  sessions  Session[]
-  settings  Settings?
+  id       Int       @id @default(autoincrement())
+  username String
+  email    String
+  password String
+  sessions Session[]
+  settings Settings?
 }
 
-// Define the Session model
 model Session {
-  id               String   @id
+  id               String @id
   startedTimestamp Int
   name             String
-  userId           Int      @unique
-  user             User     @relation(fields: [userId], references: [id])
+  userId           Int    @unique
+  user             User   @relation(fields: [userId], references: [id])
 }
 
-// Define the Settings model
 model Settings {
-  id           Int      @id @default(autoincrement())
-  displayName  String
-  hasAdmin     Boolean
-  userId       Int      @unique
-  user         User     @relation(fields: [userId], references: [id])
+  id          Int     @id @default(autoincrement())
+  displayName String
+  hasAdmin    Boolean
+  userId      Int     @unique
+  user        User    @relation(fields: [userId], references: [id])
+}
+
+model Runner {
+  unused               String          @id @default(cuid())
+  url                  String
+  ServerSettings       ServerSettings? @relation(fields: [serverSettingsUnused], references: [unused])
+  serverSettingsUnused String?
+}
+
+model ServerSettings {
+  runners Runner[]
+  signups Boolean
+  unused  String   @id
 }
 
 datasource db {

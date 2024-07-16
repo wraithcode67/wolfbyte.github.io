@@ -17,6 +17,7 @@ export async function POST({ request, cookies }) {
   if (!user) {
       return text("false")
   }
+  
   const settings = await db.settings.findFirst({
     where: {
       user: {
@@ -24,6 +25,6 @@ export async function POST({ request, cookies }) {
       }
     }
   });
-  
+  console.log(settings)
   return text(String(settings?.hasAdmin || false)) 
 }

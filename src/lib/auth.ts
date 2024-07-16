@@ -23,16 +23,14 @@ export async function createUser(email: string, username: string, password: stri
                 email: email,
                 username: username,
                 password: password,
-                
+                settings: {create: {
+                    hasAdmin: l == 0,
+                    displayName: username,
+                }}
             },
+            
         });
-        db.settings.create({
-          data: {
-            hasAdmin: l == 0,
-            displayName: username,
-            user: { connect: { id: user.id } }, // Pass the newly created user
-          },
-        });
+        console.log(l,l == 0)
         return user;
     } catch (error:any) {
         throw new Error(`Failed to create user: ${error.message}`);

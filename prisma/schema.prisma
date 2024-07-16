@@ -14,11 +14,11 @@ model User {
   email    String
   password String
   sessions Session[]
-  settings Settings?
+  Settings Settings?
 }
 
 model Session {
-  id               String @id
+  unused           String @id
   startedTimestamp Int
   name             String
   userId           Int    @unique
@@ -26,7 +26,7 @@ model Session {
 }
 
 model Settings {
-  id          Int     @id @default(autoincrement())
+  unused      String @id
   displayName String
   hasAdmin    Boolean
   userId      Int     @unique

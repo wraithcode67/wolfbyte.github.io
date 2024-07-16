@@ -16,12 +16,21 @@ export async function userExists(email: string | undefined = undefined, username
 
 export async function createUser(email: string, username: string, password: string) {
     try {
+      let l = await db.user.count()
         // Assuming hashed correctly
         const user = await db.user.create({
             data: {
                 email: email,
                 username: username,
                 password: password,
+                // @ts-expect-error
+                settings: db.settings.create({
+                  // @ts-expect-error
+                  data: {
+                    hasAdmin: l == 0,
+                    displayName: username,
+                  }
+                })
             },
         });
         return user;

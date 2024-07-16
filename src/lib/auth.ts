@@ -23,15 +23,15 @@ export async function createUser(email: string, username: string, password: stri
                 email: email,
                 username: username,
                 password: password,
-                // @ts-expect-error
-                settings: db.settings.create({
-                  // @ts-expect-error
-                  data: {
-                    hasAdmin: l == 0,
-                    displayName: username,
-                  }
-                })
+                
             },
+        });
+        db.settings.create({
+          data: {
+            hasAdmin: l == 0,
+            displayName: username,
+            user: { connect: { id: user.id } }, // Pass the newly created user
+          },
         });
         return user;
     } catch (error:any) {

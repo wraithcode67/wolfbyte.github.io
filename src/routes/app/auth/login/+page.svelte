@@ -11,9 +11,8 @@
         document.querySelector(".btn-primary").addEventListener("click",()=>{login()})
     });
     async function login() {
-      let psw = document.querySelector(".password").value
+let psw = document.querySelector(".password").value
 let usr = document.querySelector(".username").value
-
 if (!psw || !usr) {return}
       if (!RegExp(pswRegex).test(psw) || !RegExp(usrRegex).test(usr)) {
         alert("Username or password do not meet requirements");return;

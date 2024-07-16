@@ -13,7 +13,6 @@ onMount(()=>{
 async function signup() {
 let psw = document.querySelector(".password").value
 let usr = document.querySelector(".username").value
-console.log(psw,usr)
 if (!psw || !usr) {return}
       if (!RegExp(pswRegex).test(psw) || !RegExp(usrRegex).test(usr)) {
         alert("Username or password do not meet requirements");return;

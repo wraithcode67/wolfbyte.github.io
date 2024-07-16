@@ -2,7 +2,7 @@ import { text } from '@sveltejs/kit';
 // @ts-expect-error
 import mac from "node-macaddress";
 let secretKey = btoa(mac.one());
-import jwt from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 export async function POST({ request, cookies }) {
 
     const token = await request.text(); // Get the JWT token from the request body
@@ -13,11 +13,18 @@ export async function POST({ request, cookies }) {
   
     try {
         if (token && jwt.decode(token)) {
-            // @ts-expect-error
-            const expiry = jwt.decode(token).exp;
-            if (!expiry) {return text("false")}
-           console.log(expiry * 1000,Date.now())
-            return text(String(Date.now() < expiry * 1000));
+          let gd: undefined | JwtPayload = undefined;
+          jwt.verify(token,secretKey,undefined,(err,d)=>{
+if (err || typeof d == "string" || !d) {console.log("Invalid token!");throw new Error();}
+gd = d
+          })
+if (!gd) {return text("false")}
+console.log(gd);
+// @ts-expect-error
+const expiry = gd.exp;        
+if (!expiry) {return text("false")}
+console.log(expiry * 1000,Date.now())
+return text(String(Date.now() < expiry * 1000));
           }
           return text(String(false));
     } catch (error) {

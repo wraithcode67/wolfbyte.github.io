@@ -19,7 +19,6 @@ if (err || typeof d == "string" || !d) {console.log("Invalid token!");throw new 
 gd = d
           })
 if (!gd) {return text("false")}
-console.log(gd);
 // @ts-expect-error
 const expiry = gd.exp;        
 if (!expiry) {return text("false")}

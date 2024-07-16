@@ -28,6 +28,7 @@ if (!psw || !usr) {return}
       })})
       if (!res.ok) {alert(await res.text())} else {
         localStorage["__jwt_auth"] = await res.text();
+        localStorage["__jwt_user"] = usr;
         document.location = "/app"
       } 
     } 

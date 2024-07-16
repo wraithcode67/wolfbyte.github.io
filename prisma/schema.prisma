@@ -31,6 +31,7 @@ model Session {
 model Settings {
   id           Int      @id @default(autoincrement())
   displayName  String
+  hasAdmin     Boolean
   userId       Int      @unique
   user         User     @relation(fields: [userId], references: [id])
 }

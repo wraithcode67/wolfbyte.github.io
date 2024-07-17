@@ -1,4 +1,5 @@
 <script lang="ts">
+import { House,Users,Container,Settings } from "lucide-svelte";
 import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMount((async()=>{
     await validateAuth();
     let r = await fetch("/api/auth/getSettings",{method:"POST",body:JSON.stringify({token:localStorage["__jwt_auth"],username:localStorage["__jwt_user"]})})
@@ -14,9 +15,10 @@ import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMo
     <div class="drawer-side  max-h-[calc(100vh-64px)] -left-[90%] sm:w-screen  sm:-left-[90%] md:-left-[95%] lg:-left-[97%]  hover:ease-out ease-in hover:left-0 duration-300 !relative">
       <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
       <ul class="menu bg-base-200 text-base-content max-h-[calc(100vh-64px)] w-80 p-4">
-        <!-- Sidebar content here -->
-        <li><a>Sidebar Item 1</a></li>
-        <li><a>Sidebar Item 2</a></li>
+        <li><a href="?"><House height="2em" width="2em" class="mr-3" /> Dashboard</a></li>
+        <li><a href="?"><Users height="2em" width="2em" class="mr-3" /> Users</a></li>
+        <li><a href="?"><Container height="2em" width="2em" class="mr-3" />Containers</a></li>
+        <li><a href="?"><Settings height="2em" width="2em" class="mr-3" />Settings</a></li>
       </ul>
     </div>
   </div>

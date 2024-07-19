@@ -21,16 +21,6 @@ export async function POST({ request, cookies }) {
   if (!user) {
     return json({"error":"This user does not exist"},{"status":400})
   }
-  if (token && jwt.decode(token)) {
-    let d: string | JwtPayload = jwt.verify(token,secretKey,undefined)
-    if (!d || typeof d == "string" ) {return json({"error":"Invalid JWT token"},{"status":400})}
-    if (!d.exp || Date.now() > d.exp * 1000) {return json({"error":"Invalid JWT token"},{"status":400})}
-    if (d.username != username) {
-      return json({"error":"You do not have permissions to view this user's settings."},{"status":403})
-    }
-  } else {
-    return json({"error":"Invalid JWT token"},{"status":400})
-  }
   const settings = await db.settings.findFirst({
     where: {
       user: {
@@ -38,5 +28,17 @@ export async function POST({ request, cookies }) {
       }
     }
   });
+  
+  if (token && jwt.decode(token)) {
+    let d: string | JwtPayload = jwt.verify(token,secretKey,undefined)
+    if (!d || typeof d == "string" ) {return json({"error":"Invalid JWT token"},{"status":400})}
+    if (!d.exp || Date.now() > d.exp * 1000) {return json({"error":"Invalid JWT token"},{"status":400})}
+    let jwtAdmin = (await db.settings.findFirst({where: {user: {username: d.username }}}))?.hasAdmin
+    if (d.username != username && !jwtAdmin) {
+      return json({"error":"You do not have permissions to view this user's settings."},{"status":403})
+    }
+  } else {
+    return json({"error":"Invalid JWT token"},{"status":400})
+  }
   return json(settings) 
 }

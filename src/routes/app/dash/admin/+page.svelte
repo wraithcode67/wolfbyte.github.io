@@ -31,6 +31,7 @@ import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMo
   </div>
   <h2 class="font-bold text-accent text-2xl my-3">User Management</h2>
   <div class="p-3 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%]">
+    <button class="btn btn-sm btn-success mb-2">Add</button>
     <div class="p-3 bg-base-300 rounded-md flex flex-row align-middle items-center gap-4 template">
       <span class="badges flex flex-row gap-1">
         <span title="This user is an admin." class="adminIcon"><Crown class="text-warning m-0 p-0" size="20"/></span>

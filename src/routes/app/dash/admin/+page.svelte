@@ -1,5 +1,5 @@
 <script lang="ts">
-import { UserX,Crown,Gem,UserCog } from "lucide-svelte";
+import { UserX,Crown,Gem,UserCog,Trash2 } from "lucide-svelte";
 import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMount((async()=>{
     await validateAuth();
     let r = await fetch("/api/auth/getSettings",{method:"POST",body:JSON.stringify({token:localStorage["__jwt_auth"],username:localStorage["__jwt_user"]})})
@@ -42,6 +42,15 @@ import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMo
     </div>
   </div>
   <h2 class="font-bold text-accent text-2xl my-3">Session Management</h2>
-  <div class="p-6 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%]"></div>
+  <div class="p-6 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%]">
+    <div class="pl-3  flex flex-row align-middle items-center gap-4 template">
+      <b>Name</b><b>Owned By</b>
+    </div>
+    <div class="p-3 bg-base-300 rounded-md flex flex-row align-middle items-center gap-4 template">
+      <b>template</b> <span>template</span> <span class="flex flex-row gap-4 ml-16 items-center align-middle">
+        <button class="btn btn-sm btn-circle hover:bg-error hover:text-error-content btn-ghost" title="Delete this session"> <Trash2 /> </button>
+      </span>
+    </div>
+  </div>
 </div> 
 </div>

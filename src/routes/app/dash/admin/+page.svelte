@@ -32,8 +32,10 @@ import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMo
   <h2 class="font-bold text-accent text-2xl my-3">User Management</h2>
   <div class="p-3 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%]">
     <div class="p-3 bg-base-300 rounded-md flex flex-row align-middle items-center gap-4 template">
-      <span title="This user is an admin." class="adminIcon"><Crown /></span>
-      <span title="This user has Catway Purrmium." class="premiumIcon"><Gem /></span>
+      <span class="badges flex flex-row gap-1">
+        <span title="This user is an admin." class="adminIcon"><Crown class="text-warning m-0 p-0" size="20"/></span>
+        <span title="This user has Catway Purrmium." class="premiumIcon"><Gem class="text-primary m-0 p-0" size="20" /></span>
+      </span>
       template
       <span class="flex flex-row gap-4 ml-16 items-center align-middle">
       <button class="btn btn-sm btn-circle hover:bg-error hover:text-error-content btn-ghost" title="Delete this user"> <UserX /> </button>

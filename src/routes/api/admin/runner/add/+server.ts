@@ -33,4 +33,5 @@ export async function POST({ request, cookies }) {
             }
          }
      })
+     return json({},{"status":400})
 }

@@ -15,4 +15,9 @@ export async function POST({ request, cookies }) {
             return json({"error":"You do not have permission to do this."},{"status":403})
         }
     }
+    // @ts-expect-error
+    await db.runner.delete({where: {
+        url: runnerUrl
+    }})
+    return json({},{"status":400})
 }

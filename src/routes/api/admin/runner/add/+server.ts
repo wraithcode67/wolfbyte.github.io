@@ -23,5 +23,14 @@ export async function POST({ request, cookies }) {
      } catch {
         return json({"error":"Bad Catway Runner"},{"status":400})
      }
-     (await db.serverSettings.findFirst())
+     await db.serverSettings.update({
+         where: { unused: "0" },
+         data: {
+            runners: {
+                create: {
+                    url:runnerUrl
+                }
+            }
+         }
+     })
 }

@@ -34,7 +34,7 @@ model Settings {
 }
 
 model Runner {
-  unused               String         @id @default(cuid())
+  unused               Int         @id @default(autoincrement())
   url                  String
   ServerSettings       ServerSettings? @relation(fields: [serverSettingsUnused], references: [unused])
   serverSettingsUnused String?

@@ -33,8 +33,15 @@ model Settings {
   user        User    @relation(fields: [userId], references: [id])
 }
 
+model Runner {
+  unused               String         @id @default(cuid())
+  url                  String
+  ServerSettings       ServerSettings? @relation(fields: [serverSettingsUnused], references: [unused])
+  serverSettingsUnused String?
+}
+
 model ServerSettings {
-  runners Json     @default("[]")
+  runners Runner[]
   signups Boolean  @default(true)
   unused  String   @id @default(cuid())
 }

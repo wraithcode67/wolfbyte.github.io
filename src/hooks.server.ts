@@ -1,6 +1,15 @@
 import d from "dotenv";
+import { db } from "$lib/db";
 d.config();
-if (!process.env["SECRET_KEY"]) {
-    setTimeout(()=>{process.exit(1);},0)
-    throw new Error("A secret key needs to be provided in the .env file.");
+if (!(await db.serverSettings.findFirst())) {
+    console.log("Initializing server settings...")
+    await db.serverSettings.create({
+        data: {
+          signups: true,
+          runners: {
+            create: []
+          }
+        }
+    }
+)
 }

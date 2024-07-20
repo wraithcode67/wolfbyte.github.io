@@ -15,4 +15,13 @@ export async function POST({ request, cookies }) {
             return json({"error":"You do not have permission to do this."},{"status":403})
         }
     }
+    try {
+        let [username,password,...url] = runnerUrl.split("://")[1].split("@")
+        let h = btoa(`${username}:${password}`)
+        let r = await fetch(url, {headers:{"Authorization":`Basic ${h}`}})
+        if (!r.ok) {throw new Error()}
+     } catch {
+        return json({"error":"Bad Catway Runner"},{"status":400})
+     }
+     (await db.serverSettings.findFirst())
 }

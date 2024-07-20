@@ -30,7 +30,7 @@ export async function createUser(email: string, username: string, password: stri
             },
             
         });
-        console.log(l,l == 0)
+
         return user;
     } catch (error:any) {
         throw new Error(`Failed to create user: ${error.message}`);

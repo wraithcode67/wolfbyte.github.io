@@ -9,8 +9,6 @@ import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMo
     }
     }));
 </script>
-
-<div class="absolute left-[36px] md:left-[24px] lg:left-[12px] !z-[0]">
 <div class="dashboard">
   <h1 class="font-bold text-3xl my-3">Admin Dashboard</h1>
   <h2 class="font-bold text-accent text-2xl my-3 ">Instance Settings</h2>
@@ -18,7 +16,7 @@ import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMo
     <span class="flex flex-row items-center align-middle mb-5">
       Allow Signups: <input type="checkbox" class="toggle toggle-success ml-4" checked>
     </span>
-    <span class="flex flex-col items-center align-middle catwayRunners">
+    <span class="catwayRunners">
       <b class="text-lg">Catway Runners</b>
       <div class="p-6 bg-base-300 rounded-xl">
         <pre>No Runners found.</pre>
@@ -32,7 +30,7 @@ import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMo
   <h2 class="font-bold text-accent text-2xl my-3">User Management</h2>
   <div class="p-3 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%]">
     <button class="btn btn-sm btn-success mb-2">Add</button>
-    <div class="p-3 bg-base-300 rounded-md flex flex-row align-middle items-center gap-4 template">
+    <div class=" template">
       <span class="badges flex flex-row gap-1">
         <span title="This user is an admin." class="adminIcon"><Crown class="text-warning m-0 p-0" size="20"/></span>
         <span title="This user has Catway Purrmium." class="premiumIcon"><Gem class="text-primary m-0 p-0" size="20" /></span>
@@ -49,11 +47,10 @@ import { validateAuth } from "$lib/client";import { onMount } from "svelte";onMo
     <div class="pl-3  flex flex-row align-middle items-center gap-4 template">
       <b>Name</b><b>Owned By</b>
     </div>
-    <div class="p-3 bg-base-300 rounded-md flex flex-row align-middle items-center gap-4 template">
+    <div class="sCard template">
       <b>template</b> <span>template</span> <span class="flex flex-row gap-4 ml-16 items-center align-middle">
         <button class="btn btn-sm btn-circle hover:bg-error hover:text-error-content btn-ghost" title="Delete this session"> <Trash2 /> </button>
       </span>
     </div>
   </div>
 </div> 
-</div>

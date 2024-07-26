@@ -3,7 +3,7 @@
   import { UserX,Crown,Gem,UserCog,Trash2 } from "lucide-svelte";
   import { validateAuth } from "$lib/client";
   import { onMount } from "svelte";
-  
+  import * as runner from "$lib/runners.client"
   onMount(async () => {
     await validateAuth();
     let r = await fetch("/api/auth/getSettings", {
@@ -17,6 +17,9 @@
     if (!rj.hasAdmin) {
       document.location = "/app";
     }
+    await listRunners();
+  });
+  async function listRunners() {
     let res = await fetch("/api/admin/runner/list", {
       method: "POST",
       body: JSON.stringify({
@@ -27,6 +30,7 @@
         // @ts-expect-error
         document.querySelector(".runnersList").innerText = `Error: ${res.status} ${res.statusText}`;
     } else {
+    let r = await res.text();
     if (r) {
     // @ts-expect-error
     document.querySelector(".runnersList").innerText = runners.split(",").join("\n");
@@ -35,7 +39,21 @@
       document.querySelector(".runnersList").innerText = "No runners found."
     }
   }
-  });
+  }
+  // @ts-expect-error, Vite is being weird with TypeScript
+  function addRunner(runnerUrl) {
+    runner.createRunner(runnerUrl,localStorage["__jwt_auth"])
+    // @ts-expect-error exists client-side
+    addRunnerModal.close();
+    listRunners();
+  }
+    // @ts-expect-error, Vite is being weird with TypeScript
+    function removeRunner(runnerUrl) {
+    runner.deleteRunner(runnerUrl,localStorage["__jwt_auth"])
+    // @ts-expect-error exists client-side
+    removeRunnerModal.close();
+    listRunners();
+  }
 </script>
 <dialog id="addRunnerModal" class="modal backdrop-blur modal-bottom md:modal-middle">
   <div class="modal-box">
@@ -45,7 +63,7 @@
       <input id="runnerUrl" type="text" required placeholder="http://my:credentials@localhost:8100" class="input input-bordered w-full" />
     </p>
     <form class="modal-action">
-      <button class="btn btn-primary !px-6">Add Runner</button>
+      <button class="btn btn-primary !px-6" on:click={()=>{addRunner(document.querySelector("#runnerUrl"))}}>Add Runner</button>
       <button class="btn !px-6">Cancel</button>
     </form>
   </div>

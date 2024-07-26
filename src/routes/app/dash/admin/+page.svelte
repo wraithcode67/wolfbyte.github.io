@@ -63,7 +63,7 @@
       <input id="runnerUrl" type="text" required placeholder="http://my:credentials@localhost:8100" class="input input-bordered w-full" />
     </p>
     <form class="modal-action">
-      <button class="btn btn-primary !px-6" on:click={()=>{addRunner(document.querySelector("#runnerUrl"))}}>Add Runner</button>
+      <button class="btn btn-primary !px-6" on:click={()=>{addRunner(document.querySelector("#runnerUrl").value)}}>Add Runner</button>
       <button class="btn !px-6">Cancel</button>
     </form>
   </div>
@@ -77,7 +77,7 @@
       <input id="removeRunnerUrl" type="text" required placeholder="http://my:credentials@localhost:8100" class="input input-bordered w-full" />
     </p>
     <form class="modal-action">
-      <button class="btn btn-error !px-6">Remove Runner</button>
+      <button class="btn btn-error !px-6" on:click={()=>{removeRunner(document.querySelector("#removeRunnerUrl").value)}}>Remove Runner</button>
       <button class="btn !px-6">Cancel</button>
     </form>
   </div>

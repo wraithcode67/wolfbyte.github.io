@@ -17,17 +17,54 @@
     if (!rj.hasAdmin) {
       document.location = "/app";
     }
-    let runnersResponse = await fetch("/api/admin/runner/list", {
+    let res = await fetch("/api/admin/runner/list", {
       method: "POST",
       body: JSON.stringify({
         token: localStorage["__jwt_auth"],
       }),
     });
-    let runners = await runnersResponse.text();
+    if (!res.ok) {
+        // @ts-expect-error
+        document.querySelector(".runnersList").innerText = `Error: ${res.status} ${res.statusText}`;
+    } else {
+    if (r) {
     // @ts-expect-error
-    document.querySelector(".runnersList").textContent = runners;
+    document.querySelector(".runnersList").innerText = runners.split(",").join("\n");
+    } else {
+      // @ts-expect-error
+      document.querySelector(".runnersList").innerText = "No runners found."
+    }
+  }
   });
 </script>
+<dialog id="addRunnerModal" class="modal backdrop-blur modal-bottom md:modal-middle">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Add Runner</h3>
+    <p class="py-4">
+      <label for="runnerUrl">Runner URL:</label>
+      <input id="runnerUrl" type="text" required placeholder="http://my:credentials@localhost:8100" class="input input-bordered w-full" />
+    </p>
+    <form class="modal-action">
+      <button class="btn btn-primary !px-6">Add Runner</button>
+      <button class="btn !px-6">Cancel</button>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="removeRunnerModal" class="modal backdrop-blur modal-bottom md:modal-middle">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Remove Runner</h3>
+    <p class="py-4">
+      <label for="removeRunnerUrl">Runner URL:</label>
+      <input id="removeRunnerUrl" type="text" required placeholder="http://my:credentials@localhost:8100" class="input input-bordered w-full" />
+    </p>
+    <form class="modal-action">
+      <button class="btn btn-error !px-6">Remove Runner</button>
+      <button class="btn !px-6">Cancel</button>
+    </form>
+  </div>
+</dialog>
+
 <div class="dashboard ml-2 flex flex-col">
   <h1 class="font-bold text-3xl my-3">Admin Dashboard</h1>
   <h2 class="font-bold text-accent text-2xl my-3 ">Instance Settings</h2>
@@ -38,10 +75,11 @@
     <span class="catwayRunners">
       <b class="text-lg">Catway Runners</b>
       <div class="p-6 bg-base-300 rounded-xl">
-        <pre class="runnersList">No Runners found.</pre>
+        <pre class="runnersList">No runners found.</pre>
         <br>
         <span class="flex flex-row items-center align-middle gap-3">
-          <button class="btn btn-sm btn-success">Add</button> <button class="btn btn-sm btn-error">Delete</button>
+          <button class="btn btn-sm btn-success" onclick="addRunnerModal.show();">Add</button>
+          <button class="btn btn-sm btn-error" onclick="removeRunnerModal.show();">Delete</button>
         </span>
       </div>
     </span>

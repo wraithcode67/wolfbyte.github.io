@@ -3,7 +3,7 @@
   import { UserX,Crown,Gem,UserCog,Trash2 } from "lucide-svelte";
   import { validateAuth } from "$lib/client";
   import { onMount } from "svelte";
-
+  
   onMount(async () => {
     await validateAuth();
     let r = await fetch("/api/auth/getSettings", {
@@ -70,7 +70,7 @@
   <h2 class="font-bold text-accent text-2xl my-3 ">Instance Settings</h2>
   <div class="p-3 bg-base-200 rounded-xl w-fit max-w-fit">
     <span class="flex flex-row items-center align-middle mb-5 w-fit max-w-fit">
-      Allow Signups: <input type="checkbox" class="toggle toggle-success ml-4" checked>
+      Allow Signups: <input type="checkbox" class="toggle toggle-success ml-4 allowSignups" checked>
     </span>
     <span class="catwayRunners">
       <b class="text-lg">Catway Runners</b>

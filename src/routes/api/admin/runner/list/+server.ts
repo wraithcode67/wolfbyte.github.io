@@ -14,5 +14,9 @@ export async function POST({ request, cookies }) {
         if (!jwtAdmin) {
             return json({"error":"You do not have permission to do this."},{"status":403})
         }
+        return text((await db.runner.findMany()).toString())
+    }else {
+        return json({"error":"No JWT token provided or it is invalid"},{"status":400})
     }
-}d
+    
+}

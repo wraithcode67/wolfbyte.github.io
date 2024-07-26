@@ -14,6 +14,8 @@ export async function POST({ request, cookies }) {
         if (!jwtAdmin) {
             return json({"error":"You do not have permission to do this."},{"status":403})
         }
+    }else {
+        return json({"error":"No JWT token provided or it is invalid"},{"status":400})
     }
     // @ts-expect-error
     await db.runner.delete({where: {

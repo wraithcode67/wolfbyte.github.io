@@ -18,22 +18,31 @@ export async function POST({ request, cookies }) {
         return json({"error":"No JWT token provided or it is invalid"},{"status":400})
     }
     try {
-        let [username,password,...url] = runnerUrl.split("://")[1].split("@")
-        let h = btoa(`${username}:${password}`)
-        let r = await fetch(url, {headers:{"Authorization":`Basic ${h}`}})
+        let [auth,...url] = runnerUrl.split("://")[1].split("@");
+        let h = btoa(`${auth.split(":")[0]}:${auth.split(":")[1]}`);
+        console.debug('[POST] Fetching runnerUrl:', runnerUrl);
+        let r = await fetch(`${runnerUrl.split("://")[0]}://${url}`, { headers: { "Authorization": `Basic ${h}` } });
         if (!r.ok) {throw new Error()}
      } catch {
         return json({"error":"Bad Catway Runner"},{"status":400})
      }
-     await db.serverSettings.update({
+     await db.serverSettings.upsert({
          where: { unused: "0" },
-         data: {
-            runners: {
-                create: {
-                    url:runnerUrl
-                }
-            }
+         create: {
+             unused: "0",
+             runners: {
+                 create: {
+                     url: runnerUrl
+                 }
+             }
+         },
+         update: {
+             runners: {
+                 create: {
+                     url: runnerUrl
+                 }
+             }
          }
      })
-     return json({},{"status":400})
+     return json({},{"status":200})
 }

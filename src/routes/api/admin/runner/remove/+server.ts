@@ -17,9 +17,22 @@ export async function POST({ request, cookies }) {
     }else {
         return json({"error":"No JWT token provided or it is invalid"},{"status":400})
     }
-    // @ts-expect-error
-    await db.runner.delete({where: {
-        url: runnerUrl
-    }})
-    return json({},{"status":400})
+let runner = await db.runner.findFirst({ where: { url: runnerUrl } });
+if (!runner) {
+  return json({ "error": "Runner not found" }, { "status": 404 });
+}
+await db.serverSettings.upsert({
+    where: { unused: "0" },
+    create: {
+        unused: "0",
+        runners: {}
+    },
+    update: {
+        runners: {
+            delete:runner
+        }
+    }
+})
+    
+    return json({},{"status":200})
 }

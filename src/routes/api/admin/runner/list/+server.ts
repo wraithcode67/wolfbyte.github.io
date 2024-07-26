@@ -14,8 +14,11 @@ export async function POST({ request, cookies }) {
         if (!jwtAdmin) {
             return json({"error":"You do not have permission to do this."},{"status":403})
         }
-        console.log(await db.runner.findMany())
-        return text((await db.runner.findMany()).toString())
+const runners = await db.runner.findMany();
+const urls = runners.map((runner) => runner.url).join(',');
+console.log(runners,urls)
+return text(urls);
+
     }else {
         return json({"error":"No JWT token provided or it is invalid"},{"status":400})
     }

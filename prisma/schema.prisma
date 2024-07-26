@@ -26,7 +26,7 @@ model Session {
 }
 
 model Settings {
-  unused      String  @id @default(cuid())
+  unused      Int     @id @default(autoincrement())
   displayName String
   hasAdmin    Boolean
   userId      Int     @unique

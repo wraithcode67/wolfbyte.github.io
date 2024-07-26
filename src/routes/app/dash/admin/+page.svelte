@@ -33,7 +33,7 @@
     let r = await res.text();
     if (r) {
     // @ts-expect-error
-    document.querySelector(".runnersList").innerText = runners.split(",").join("\n");
+    document.querySelector(".runnersList").innerText = r.split(",").join("\n");
     } else {
       // @ts-expect-error
       document.querySelector(".runnersList").innerText = "No runners found."
@@ -93,7 +93,7 @@
     <span class="catwayRunners">
       <b class="text-lg">Catway Runners</b>
       <div class="p-6 bg-base-300 rounded-xl">
-        <pre class="runnersList">No runners found.</pre>
+        <pre class="runnersList">Loading runners...</pre>
         <br>
         <span class="flex flex-row items-center align-middle gap-3">
           <button class="btn btn-sm btn-success" onclick="addRunnerModal.show();">Add</button>

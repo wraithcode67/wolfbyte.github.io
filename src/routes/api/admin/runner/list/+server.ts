@@ -5,7 +5,7 @@ let secretKey = btoa(mac.one());
 import { db } from '$lib/db';
 import jwt, { type JwtPayload } from "jsonwebtoken";
 export async function POST({ request, cookies }) {
-    let { token, runnerUrl } = await request.json();
+    let { token } = await request.json();
     if (token && jwt.decode(token)) {
         let d: string | JwtPayload = jwt.verify(token,secretKey,undefined)
         if (!d || typeof d == "string" ) {return json({"error":"Invalid JWT token"},{"status":400})}
@@ -14,6 +14,7 @@ export async function POST({ request, cookies }) {
         if (!jwtAdmin) {
             return json({"error":"You do not have permission to do this."},{"status":403})
         }
+        console.log(await db.runner.findMany())
         return text((await db.runner.findMany()).toString())
     }else {
         return json({"error":"No JWT token provided or it is invalid"},{"status":400})

@@ -1,4 +1,7 @@
 import { db } from '$lib/db';
+
+
+
 async function getRunners() {
     const runners = await db.runner.findMany();
     if (runners.length == 0) {return []}

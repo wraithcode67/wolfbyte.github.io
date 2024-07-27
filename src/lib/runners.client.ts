@@ -11,7 +11,7 @@ export async function createRunner(runnerUrl: string, token: string) {
     return await response.json();
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to create runner' };
+    return {};
   }
 }
 
@@ -27,7 +27,7 @@ export async function readRunners(token: string) {
     return await response.json();
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to read runners' };
+    return {};
   }
 }
 
@@ -43,6 +43,6 @@ export async function deleteRunner(runnerUrl: string, token: string) {
     return await response.json();
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to delete runner' };
+    return {};
   }
 }

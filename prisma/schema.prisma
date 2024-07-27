@@ -42,10 +42,10 @@ model Runner {
 
 model ServerSettings {
   runners         Runner[]
-  signups         Boolean   @default(true)
-  unused          String    @id @default(cuid())
-  container       Container @relation(fields: [containerUnused], references: [unused])
-  containerUnused String
+  signups         Boolean       @default(true)
+  unused          String        @id @default(cuid())
+  container       Container[]
+  containerunused String?
 }
 
 model Container {
@@ -54,7 +54,7 @@ model Container {
   imageUrl       String
   ram            Int
   cores          Int
-  serverSettings ServerSettings[]
+  ServerSettings ServerSettings[]
 }
 
 datasource db {

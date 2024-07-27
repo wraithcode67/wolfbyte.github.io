@@ -34,7 +34,8 @@ export async function POST({ request, cookies }) {
                  create: {
                      url: runnerUrl
                  }
-             }
+             },
+             container: {}
          },
          update: {
              runners: {

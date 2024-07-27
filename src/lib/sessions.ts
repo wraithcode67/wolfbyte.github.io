@@ -54,7 +54,7 @@ export async function pullContainer(url:string) {
     }
 }
 
-export async function seedContainer(data: { imageUrl: string, friendlyName: string, ram: number, cores: number }) {
+export async function seedContainer(data: { imageUrl: string, friendlyName: string, ram: number, cores: number },seedOnly:boolean = false) {
     const { imageUrl, friendlyName, ram, cores } = data;
     await db.container.create({
       data: {
@@ -64,5 +64,7 @@ export async function seedContainer(data: { imageUrl: string, friendlyName: stri
         cores,
       },
     });
-    await pullContainer(imageUrl);
+    if (!seedOnly) {
+        await pullContainer(imageUrl);  
+    }
 }

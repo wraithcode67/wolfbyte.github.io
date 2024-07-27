@@ -2,19 +2,19 @@ import { db } from '$lib/db';
 
 
 
-async function getRunners() {
+export async function getRunners() {
     const runners = await db.runner.findMany();
     if (runners.length == 0) {return []}
     return runners.map((runner) => runner.url);
 }
 
-function mkAuthHeader(url:string) {
+export function mkAuthHeader(url:string) {
     if (!url.includes("@")) {return ["",url]}
     let [username,password,...unused] = url.split("://")[1].split("@")[0].split(":")
     return [btoa(`${username}:${password}`),url.replace(`${username}:${password}@`, "")]
 }
 
-async function getARunner() {
+export async function getARunner() {
     let runners = await getRunners();
     if (runners.length == 0) {
         console.error("No runners!");
@@ -38,4 +38,31 @@ async function getARunner() {
     } else {
         return randRunner
     }
+}
+export async function pullContainer(url:string) {
+    let r = await getRunners();
+    for (let runner of r) {
+         let ah = mkAuthHeader(runner)
+         let res = await fetch(`${ah[1]}/containers/pull`,{
+            "method": "POST",
+            "headers":{
+                "authentication": ah[0]
+            }, "body": JSON.stringify({
+                "url": url
+            })
+        })
+    }
+}
+
+export async function seedContainer(data: { imageUrl: string, friendlyName: string, ram: number, cores: number }) {
+    const { imageUrl, friendlyName, ram, cores } = data;
+    await db.container.create({
+      data: {
+        imageUrl,
+        friendlyName,
+        ram,
+        cores,
+      },
+    });
+    await pullContainer(imageUrl);
 }

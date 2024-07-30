@@ -103,8 +103,9 @@
     </span>
   </div>
   <h2 class="font-bold text-accent text-2xl my-3">User Management</h2>
-  <div class="p-3 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%] max-w-[640px]">
+  <div class="p-3 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%] max-w-[400px] overflow-auto">
     <button class="btn btn-sm btn-success mb-2">Add</button>
+    <cards class="grid grid-cols-1 w-full gap-3">
     <div class="uCard template">
       <span class="badges flex flex-row gap-1">
         <span title="This user is an admin." class="adminIcon"><Crown class="text-warning m-0 p-0" size="20"/></span>
@@ -116,16 +117,19 @@
       <button class="btn btn-sm btn-circle hover:bg-primary hover:text-primary-content btn-ghost" title="Manage this user's roles"> <UserCog  /> </button>
     </span>
     </div>
+    </cards>
   </div>
   <h2 class="font-bold text-accent text-2xl my-3">Session Management</h2>
-  <div class="p-6 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%] max-w-[640px]">
+  <div class="p-3 bg-base-200 rounded-xl min-h-[240px] max-h-[480px] min-w-[50%] max-w-[400px] overflow-auto">
     <div class="pl-3  flex flex-row align-middle items-center gap-4 template">
       <b>Name</b><b>Owned By</b>
     </div>
+    <sessions class="grid grid-cols-1 w-full gap-3">
     <div class="sCard template">
       <b>template</b> <span>template</span> <span class="flex flex-row gap-4 ml-16 items-center align-middle">
         <button class="btn btn-sm btn-circle hover:bg-error hover:text-error-content btn-ghost" title="Delete this session"> <Trash2 /> </button>
       </span>
     </div>
+  </sessions>
   </div>
 </div> 

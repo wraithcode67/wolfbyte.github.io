@@ -64,7 +64,7 @@
     </p>
     <form class="modal-action">
       <button class="btn btn-primary !px-6" on:click={()=>{addRunner(document.querySelector("#runnerUrl").value)}}>Add Runner</button>
-      <button class="btn !px-6">Cancel</button>
+      <button class="btn !px-6" onclick="addRunnerModal.close();">Cancel</button>
     </form>
   </div>
 </dialog>
@@ -78,7 +78,7 @@
     </p>
     <form class="modal-action">
       <button class="btn btn-error !px-6" on:click={()=>{removeRunner(document.querySelector("#removeRunnerUrl").value)}}>Remove Runner</button>
-      <button class="btn !px-6">Cancel</button>
+      <button class="btn !px-6" onclick="removeRunnerModal.close();">Cancel</button>
     </form>
   </div>
 </dialog>

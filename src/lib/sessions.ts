@@ -68,3 +68,18 @@ export async function seedContainer(data: { imageUrl: string, friendlyName: stri
         await pullContainer(imageUrl);  
     }
 }
+export type ContainerProps = {
+    imageUrl: string;
+    friendlyName: string;
+    ram: number;
+    cores: number;
+  };
+  export const isContainerProps = (props: unknown): props is ContainerProps => {
+    if (typeof props !== 'object' || props === null) return false;
+    return (
+      'imageUrl' in props && typeof props.imageUrl === 'string' &&
+      'friendlyName' in props && typeof props.friendlyName === 'string' &&
+      'ram' in props && typeof props.ram === 'number' &&
+      'cores' in props && typeof props.cores === 'number'
+    );
+  };

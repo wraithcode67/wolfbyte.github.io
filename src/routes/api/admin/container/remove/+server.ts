@@ -6,7 +6,7 @@ let secretKey = btoa(mac.one());
 import { db } from '$lib/db';
 import jwt, { type JwtPayload } from "jsonwebtoken";
 export async function POST({ request, cookies }) {
-    let { token,containerProps,seedOnly = false } = await request.json();
+    let { token,imageUrl } = await request.json();
     if (token && jwt.decode(token)) {
         let d: string | JwtPayload = jwt.verify(token,secretKey,undefined)
         if (!d || typeof d == "string" ) {return json({"error":"Invalid JWT token"},{"status":400})}
@@ -15,10 +15,11 @@ export async function POST({ request, cookies }) {
         if (!jwtAdmin) {
             return json({"error":"You do not have permission to do this."},{"status":403})
         }
-        if (!containerProps || typeof containerProps != "object" || !sessions.isContainerProps(containerProps)) {
-            return json({"error":"Invalid container properties"},{"status":400})
+        let c = await db.container.findFirst({where: {imageUrl: imageUrl}})
+        if (!c) {
+            return json({"error":"Container not found"},{"status":404})
         }
-        await sessions.seedContainer(containerProps,seedOnly)
+        await db.container.delete({where: {unused: c.unused}})
         return json({},{"status":200})
     }else {
         return json({"error":"No JWT token provided or it is invalid"},{"status":400})

@@ -1,5 +1,4 @@
 import { text,json } from '@sveltejs/kit';
-import * as sessions from '$lib/sessions';
 // @ts-expect-error
 import mac from "node-macaddress";
 let secretKey = btoa(mac.one());

@@ -8,9 +8,9 @@ import { error } from '@sveltejs/kit';
 import { db } from '$lib/db';
 */
 import { text } from '@sveltejs/kit';
-export async function GET({ request }) {
-    const { url } = await request.json();
-    const response = await fetch(url);
+export async function GET({ request,url,params }) {
+    console.log(params)
+    const response = await fetch(decodeURIComponent(params.url));
     if (!response.ok) {
         return text("Non-ok status code.",{"status":500})
     }
@@ -21,9 +21,14 @@ export async function GET({ request }) {
         'image/jpg',
         'image/webp',
         'image/gif',
-        'image/ico'
+        'image/x-icon'
     ].includes(contentType)) {
-        return text("Not an image",{"status":400})
+        return text("Not an image, recieved "+contentType,{"status":400})
     }
-    return new Response(response.body, { headers: { 'Content-Type': contentType } });
+    return new Response(response.body, {
+        headers: {
+            'Content-Type': contentType,
+            'Cache-Control': 'public, max-age=172800' // 48 hours in seconds
+        }
+    });
 }

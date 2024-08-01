@@ -136,7 +136,7 @@ export async function GET({ request,params }) {
                 mime = Jimp.MIME_GIF;
                 break;
             case "dont" || "dontconvert" || "original" || "unchanged":
-                mime = contentType;
+                mime = contentType || "";
                 break;
     }
     return new Response(await image.getBufferAsync(mime), {

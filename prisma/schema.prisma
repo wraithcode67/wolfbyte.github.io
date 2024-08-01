@@ -21,6 +21,7 @@ model Session {
   unused           String @id @default(cuid())
   startedTimestamp Int
   name             String
+  dockerId         String @unique
   userId           Int    @unique
   user             User   @relation(fields: [userId], references: [id])
 }

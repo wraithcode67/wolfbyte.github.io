@@ -85,9 +85,9 @@ export type ContainerProps = {
   };
 
 
-async function runnerFetch(url:string,init?: RequestInit) {
+async function runnerFetch(url:string,path:string,init?: RequestInit) {
     let ah = mkAuthHeader(url)
-    let res = await fetch(`${ah[1]}/${url}`,{
+    let res = await fetch(`${ah[1]}/${path}`,{
        "headers":{
            "authentication": ah[0]
        }, ...init
@@ -95,31 +95,13 @@ async function runnerFetch(url:string,init?: RequestInit) {
    return res;
 }
 async function runnerPolicy(url:string,) {
-    let ah = mkAuthHeader(url)
-    let res = await fetch(`${ah[1]}/policy/`,{
-       "headers":{
-           "authentication": ah[0]
-       }
-   })
-   return res;
+   return await runnerFetch(url,"policy/");
 }
 async function runnerList(url:string,) {
-    let ah = mkAuthHeader(url)
-    let res = await fetch(`${ah[1]}/containers/list`,{
-       "headers":{
-           "authentication": ah[0]
-       }
-   })
-   return res;
+    return await runnerFetch(url,"containers/list");
 }
 async function runnerGetPorts(url:string,) {
-    let ah = mkAuthHeader(url)
-    let res = await fetch(`${ah[1]}/ports/list`,{
-       "headers":{
-           "authentication": ah[0]
-       }
-   })
-   return res;
+    return await runnerFetch(url,"ports/list");
 }
 
 

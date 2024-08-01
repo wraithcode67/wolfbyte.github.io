@@ -146,11 +146,5 @@ export async function GET({ request,params }) {
         }
     });
 }
-return new Response(await image.getBufferAsync(contentType), {
-    headers: {
-        'Content-Type': contentType,
-        'Cache-Control': 'public, max-age=172800' // 48 hours in seconds
-    }
-});
 }
 }

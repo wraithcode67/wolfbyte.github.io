@@ -8,7 +8,7 @@ import { error } from '@sveltejs/kit';
 import { db } from '$lib/db';
 */
 import { text } from '@sveltejs/kit';
-export async function GET({ request,url,params }) {
+export async function GET({ request,params }) {
     console.log(params)
     const response = await fetch(decodeURIComponent(params.url));
     if (!response.ok) {
@@ -21,7 +21,9 @@ export async function GET({ request,url,params }) {
         'image/jpg',
         'image/webp',
         'image/gif',
-        'image/x-icon'
+        'image/x-icon',
+        'image/x-ms-bmp',
+        'image/tiff'
     ].includes(contentType)) {
         return text("Not an image, recieved "+contentType,{"status":400})
     }

@@ -4,6 +4,7 @@ import mac from "node-macaddress";
 let secretKey = btoa(mac.one());
 import { db } from '$lib/db';
 import jwt, { type JwtPayload } from "jsonwebtoken";
+import * as sessions from "$lib/sessions";
 export async function POST({ request, cookies }) {
     let { token } = await request.json();
     if (token && jwt.decode(token)) {
@@ -14,4 +15,5 @@ export async function POST({ request, cookies }) {
         return json({"error":"No JWT token provided or it is invalid"},{"status":400})
     }
     // return json(Object(await db.container.findMany()))
+    let runners = await sessions.getRunners();
 }

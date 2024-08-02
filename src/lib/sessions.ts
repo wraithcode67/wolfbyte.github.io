@@ -103,6 +103,27 @@ async function runnerList(url:string,) {
 async function runnerGetPorts(url:string,) {
     return await runnerFetch(url,"ports/list");
 }
+async function runnerContainerDo(action:("kill" | "restart" | "delete" | "pause" | "unpause" | "keepalive"),url:string,id:string) {
+    return await runnerFetch(url,`container/${action}`, {
+        "method":"POST",
+        "body": JSON.stringify({"id":id})});
+}
+async function runnerContainerCreate(url:string,templateContainer:string) {
+    let containerTemplate = await db.container.findFirstOrThrow({ where:{
+        friendlyName: templateContainer
+    }});
+    return await runnerFetch(url,`container/create`, {"method":"POST","body": JSON.stringify(templateContainer)});
+}
 
-
-export const runner = {"fetch":runnerFetch,"policy":runnerPolicy,"ports":runnerGetPorts,"list":runnerList}
+const containerActions = ["kill","restart","delete","pause","unpause","keepalive"];
+export const runner = {
+    "fetch":runnerFetch,
+    "policy":runnerPolicy,
+    "ports":runnerGetPorts,
+    "list":runnerList,
+    "container":{
+        "do": runnerContainerDo,
+        "create": runnerContainerCreate,
+        "actions": containerActions
+    }
+};

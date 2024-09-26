@@ -5,9 +5,10 @@ in
     buildInputs = [
       nodejs
       openssl
+      python312Packages.prisma
     ];
 
-    shellHook = ''PATH="$PWD/node_modules/.bin:$PATH"'';
+    shellHook = ''PATH="$PATH:$PWD/node_modules/.bin"'';
 
     PRISMA_SCHEMA_ENGINE_BINARY = "${prisma-engines}/bin/schema-engine";
     PRISMA_QUERY_ENGINE_BINARY = "${prisma-engines}/bin/query-engine";

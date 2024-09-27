@@ -109,12 +109,12 @@
     <div class="uCard template">
       <span class="badges flex flex-row gap-1">
         <span title="This user is an admin." class="adminIcon"><Crown class="text-warning m-0 p-0" size="20"/></span>
-        <span title="This user has Catway Purrmium." class="premiumIcon"><Gem class="text-primary m-0 p-0" size="20" /></span>
+        <span title="This user has Catway Purrmium." class="premiumIcon"><Gem class="text-primary m-0 p-0 " size="20" /></span>
       </span>
       template
       <span class="flex flex-row gap-4 ml-16 items-center align-middle">
-      <button class="btn btn-sm btn-circle hover:bg-error hover:text-error-content btn-ghost" title="Delete this user"> <UserX /> </button>
-      <button class="btn btn-sm btn-circle hover:bg-primary hover:text-primary-content btn-ghost" title="Manage this user's roles"> <UserCog  /> </button>
+      <button class="btn btn-sm p-0.5 px-1 hover:bg-error hover:text-error-content btn-ghost" title="Delete this user"> <UserX /> </button>
+      <button class="btn btn-sm p-0.5 px-1 hover:bg-primary hover:text-primary-content btn-ghost" title="Manage this user's roles"> <UserCog  /> </button>
     </span>
     </div>
     </cards>
@@ -127,7 +127,7 @@
     <sessions class="grid grid-cols-1 w-full gap-3">
     <div class="sCard template">
       <b>template</b> <span>template</span> <span class="flex flex-row gap-4 ml-16 items-center align-middle">
-        <button class="btn btn-sm btn-circle hover:bg-error hover:text-error-content btn-ghost" title="Delete this session"> <Trash2 /> </button>
+        <button class="btn btn-sm p-0.5 px-1 hover:bg-error hover:text-error-content btn-ghost" title="Delete this session"> <Trash2 /> </button>
       </span>
     </div>
   </sessions>
